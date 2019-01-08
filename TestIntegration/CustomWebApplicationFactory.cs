@@ -27,8 +27,10 @@ namespace TestIntegration
                     options.UseInMemoryDatabase("InMemoryDbForTesting");
                     options.UseInternalServiceProvider(serviceProvider);
                 });
+                // This object will be available in DI container
                 services.AddScoped<IToDoService, ToDoService>();
                 
+                // Managing exception in a centralized way
                 services.AddMvc(options =>
                 {
                     options.Filters.Add(typeof(CustomExceptionFilter));

@@ -41,16 +41,13 @@ namespace MyAPI
                 c.SwaggerDoc("v1", new Info
                 {
                     Version = "v1",
-                    Title = "ToDo API",
+                    Title = "MyAPI",
                     Description = "A simple example ASP.NET Core Web API",
-                    TermsOfService = "None",
                     Contact = new Contact
                     {
                         Name = "Nicola Anghelè",
-                        Email ="nicola.anghele@staff.aruba.it",
-                        Url = "https://twitter.com/spboyer"
-                    }
-                   
+                        Email ="nicola.anghele@gmail.com"
+                    }                   
                 });
 
                 // Set the comments path for the Swagger JSON and UI.
