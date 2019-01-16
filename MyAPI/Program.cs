@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore;
+﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
+using Serilog;
+using System;
+using System.IO;
 
 namespace MyAPI
 {
@@ -17,8 +14,23 @@ namespace MyAPI
             CreateWebHostBuilder(args).Build().Run();
         }
 
+        public static IConfigurationRoot GetConfig() {
+            var currentEnv = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            return new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json")
+                .AddJsonFile($"appsettings.{currentEnv}.json", optional: true)
+                .AddEnvironmentVariables()
+                .Build();
+    }
+
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+            .UseSerilog((ctx, config) =>
+            {
+                config.ReadFrom.Configuration(GetConfig())
+                    .WriteTo.Console();
+            })
+            .UseStartup<Startup>();
     }
 }

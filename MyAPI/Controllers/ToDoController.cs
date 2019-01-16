@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using MyAPI.Models;
 using MyAPI.Services;
 
@@ -13,10 +14,13 @@ namespace MyAPI.Controllers
     {
 
         private readonly IToDoService _toDoService;
+        private readonly ILogger _logger;
 
-        public ToDoController(TodoContext context, IToDoService toDoServices)
+        public ToDoController(TodoContext context, IToDoService toDoServices, ILogger<ToDoController> logger)
         {
             _toDoService = toDoServices;
+            _logger = logger;
+
         }
 
         
@@ -25,6 +29,7 @@ namespace MyAPI.Controllers
         public async Task<ActionResult<List<TodoItem>>> GetTodoItems()
         {
             List<TodoItem> itemList = await _toDoService.GetTodoItems();
+            _logger.LogInformation("nicola aaa");
             return itemList;
         }
 
