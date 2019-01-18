@@ -37,6 +37,9 @@ namespace TestIntegration
                     
                 });
 
+                
+              
+
                 // Build the service provider.
                 var sp = services.BuildServiceProvider();
 

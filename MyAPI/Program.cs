@@ -24,13 +24,17 @@ namespace MyAPI
                 .Build();
     }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-            .UseSerilog((ctx, config) =>
-            {
-                config.ReadFrom.Configuration(GetConfig())
-                    .WriteTo.Console();
-            })
-            .UseStartup<Startup>();
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args)
+        {
+
+            var webhostbuilder = WebHost.CreateDefaultBuilder(args);
+            
+                webhostbuilder.UseSerilog((ctx, config) =>
+                {
+                    config.ReadFrom.Configuration(GetConfig())
+                        .WriteTo.Console();
+                });      
+            return webhostbuilder.UseStartup<Startup>();
+        }
     }
 }

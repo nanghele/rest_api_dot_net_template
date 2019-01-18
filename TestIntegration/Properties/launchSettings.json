@@ -1,10 +1,1 @@
-{
-  "profiles": {
-    "TestIntegration": {
-      "commandName": "Project",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "TEST"
-      }
-    }
-  }
-}
+{}
